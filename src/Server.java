@@ -366,11 +366,9 @@ public class Server {
      */
     private static boolean containsSpecialCharacter(String string){
         Pattern p = Pattern.compile("[^a-z0-9_]", Pattern.CASE_INSENSITIVE);
-        //Pattern allowedCharacter = Pattern.compile("[_]");
         Matcher m = p.matcher(string);
-        //Matcher n = allowedCharacter.matcher(string);
         boolean flag = m.find();
-        //boolean c = n.find();
+        
         if (flag){
             return false;
         }
