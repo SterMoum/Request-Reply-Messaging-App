@@ -1,25 +1,60 @@
-Εργασία Δικτυακού Προγραμματισμού
-Request-Reply Messaging App
+# How to Run
 
-Έγινε χρήση TCP Επικοινωνίας μεταξύ Server και Client(Χρήση streams και sockets)!
-Επεξήγηση της κλάσσης Server.java και ClientHandler.java
+## Server Side
+The server should be executed this way
+> java Server < port number >
+>
+Port number declares the port that the server listens to
 
-Η κλάσση Server.java προσδιορίζει και υλοποιεί τη λειτουργία του Server ο οποίος υλοποιήθηκε με χρήση TCP σύνδεσης. Φαίνεται πως κατα τη κλήση του ο server δέχεται μία θύρα σαν όρισμα και ξεκινάει η διαδικασία της επικοινωνίας του με τον client.
-Μόλις ο client στείλει ένα request(και είναι αποδεκτό) τότε καλλείται ο ClientHandler (που υλοποιεί το interface Runnable) και αμέσως μετά δημιουργούμε ενα thread και ξεκινάει η εκτέλεση του request. Για την ταυτόχρονη διαχείριση πολλαπλών αιτημάτων γίνεται η χρήση των threads όπου για κάθε αίτημα δημιουργείται και ένα διαφορετικό thread.
+## Client Side
+The Client side should be executed this way
+>java Client < ip > < port number > < fn_id > < args >
 
- Μόλις ο server λάβει ένα αίτημα απο τον client και είναι αποδεκτό τότε ανάλογα το fn_id του μηνύματος εκτελείται και η κατάλληλη συνάρτηση. Για κάθε λειτουργία έχει δημιουργηθεί και ξεχωριστή συνάρτηση η οποία καλεί ο ClientHandler και έτσι ο server στέλνει τα κατάλληλα μηνύματα πίσω στον client.
+όπου
+● <b>ip</b>: Server Ip (use localhost for easy use)
+● <b>port number:</b> The port that the server listens to  
+● <b> fn_id: </b> The identifier of the executed operation
+● <b> args: </b>  The operations' parameters
+The operations are the following:
 
-Επίσης όσοι λογαριασμοί δημιουργούνται αποθηκεύονται στο array list accounts και εκτός αυτού χρησιμοποιούνται array lists(βλ. tokens,usernames) καθώς και επιπρόσθετοι μέθοδοι (βλ. isTokenValid(int token))για  την ορθή και αποτελεσματική λειτουργία του προγραμματος
 
-Επεξήγηση της κλάσσης Client.java
+### Create Account (FN_ID: 1)
 
-Η κλάση αυτή υλοποιεί τη λειτουργία του Client. Μόλις ξεκινάει η εκτέλεση του client ο constructor δέχεται σαν όρισμα το πίνακα με τα arguments και στέλνει την ip του και το port στον σερβερ με τη χρήση των sockets. Μόλις γίνει αποδεκτός από τον σέρβερ καλλείται η ανάλογη συνάρτηση με βάση το δοσμένο fn_id που δόθηκε στον σερβερ. 
-Για την καλύτερη κατανόηση δημιουργήθηκαν για κάθε λειτουργία αντίστοιχες μέθοδοι (όπως και στον σερβερ) οι οποίες καλλουνται με βάση το fn_id και τυπώνονται τα κατάλληλα μηνύματα ανάλογα την αίτηση που έστειλε στον σερβερ.
+> java Client < ip > < port number> 1 < username >
 
-Επεξήγηση της κλάσσης Account.java και Message.java
+Creates an account for the user with the given username.
+The function returns a <b>unique code (token)  </b> which is used to
+authenticate the user in his next requests.
 
-1)Account.java
- Η κλάση αυτή προσδιορίζει τον λογαριασμο του χρήστη ο οποίος αποτελείται από το username το auth token και το inbox του.
-Πέρα απο τη δημιουργία απλών setters και getters για κάθε ιδιότητα δημιουργιούργησα και μία συνάρτηση η οποία προσθέτει ένα μήνυμα στο inbox του χρήστη κάθε φορά που λαμβάνει ένα μήνυμα
-2)Message.java
-Η κλάση Message περιγράφει το μήνυμα που στέλνει ένας χρήστης σε έναν άλλον. Πέρα απο τα πεδία isRead,sender,receiver,body χρησιμοποιήθηκε άλλο ένα πεδίο το οποίο είναι το id που προσδιορίζει εναν μοναδικό κωδικό που έχει κάθε απεσταλμένο μήνυμα 
+### Show Accounts (FN_ID: 2)
+> java Client < ip > < port number> 2 < authtoken >
+
+A list of all the existed accounts are printed
+
+The file explorer is accessible using the button in left corner of the navigation bar. You can create a new file by clicking the **New file** button in the file explorer. You can also create folders by clicking the **New folder** button.
+
+### Send Message (FN_ID: 3)
+> java Client < ip > < port number> 3 < authtoken > < recipient > < message_body >
+
+A message ( <b> < message_body > </b> ) is sent to the user <b> < recipient > </b>
+
+
+###  Show Inbox (FN_ID: 4)
+> java Client < ip > < port number> 4 < authtoken >
+
+It displays a list with all the received messages of the user with the token <b>< authtoken > </b>
+
+
+
+### ReadMessage (FN_ID: 5)
+> java Client < ip > < port number> 5 < authtoken > < message_id >
+
+This operation displays the content of a message of the user with id
+<message_id>. The message is then marked as read
+
+
+### DeleteMessage (FN_ID: 6)
+> java Client < ip > < port number> 6 < authtoken > < message_id >
+
+This operation deletes the message with id < message_id >
+

@@ -383,9 +383,7 @@ public class Server {
                 return -2;
                 //error code for already existed username
             }
-            //account.setUsername(username);
             usernames.add(username);
-            //account.setMessageBox(null);
             Random rand = new Random(); //instance of random class
             int upperbound = 10000;
             //generate random values from 0-10000

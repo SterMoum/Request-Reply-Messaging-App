@@ -21,7 +21,6 @@ public class Client {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //int counter = 0;
         String username;
         String token;
         boolean isValid;
