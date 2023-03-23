@@ -11,10 +11,10 @@ The Client side should be executed this way
 >java Client < ip > < port number > < fn_id > < args >
 
 όπου
-● <b>ip</b>: Server Ip (use localhost for easy use)
-● <b>port number:</b> The port that the server listens to  
-● <b> fn_id: </b> The identifier of the executed operation
-● <b> args: </b>  The operations' parameters
+● <b>ip</b>: Server Ip (use localhost for easy use) <n>
+● <b>port number:</b> The port that the server listens to <n>  
+● <b> fn_id: </b> The identifier of the executed operation <n>
+● <b> args: </b>  The operations' parameters <n>
 The operations are the following:
 
 
